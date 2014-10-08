@@ -63,7 +63,7 @@ class MemberView {
 	public function show(\model\Member $member) {  
 		$boatArray = $member->getBoats()->toArray();
 		$ret = '<h1>' . $member->getName() . " " . $member->getSurname() . '</h1>';
-		$ret .= "<p><span>Personnr: </span>" .$member->getPersonalcn(). " <span> Medlemsnr: </span>" .$member->getMemberId();
+		$ret .= "<p><span>Personnr: </span>" .$member->getPersonalcn(). " <span> Medlemsnr: </span>" .$member->getMemberId() . "</p>";
 		$ret .= "<a href='?action=".NavigationView::$actionDeleteMember."&amp;".self::$getLocation."=" . 
 					urlencode($member->getMemberId()) ."' class = 'deleteBtn'> Ta bort medlem </a>";
 		$ret .= "<h2>Båtar</h2>";
@@ -71,11 +71,12 @@ class MemberView {
 		foreach($boatArray as $boat) {
 			$ret .= "<li>".$boat->getName()."</li>";
 		}
-		if (empty($boatArray)) 
-		$ret .= "0";
-		
 		$ret .= "</ul>";
-		$ret .= NavigationView::getMemberMenu($member->getMemberId());
+		
+		if (empty($boatArray)) 
+		$ret .= "<p>Har ej en båt registrerad.</p> <br />";
+		
+		$ret .= NavigationView::getMemberMenu($member->getMemberId());  //<--- TODO - rename? cos it's the add boat button...
 		
 		return $ret;
 	}
