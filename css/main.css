@@ -1,0 +1,270 @@
+@charset "UTF-8";
+
+	body {		overflow-y: scroll;	
+				width:100%;
+				height:100%;
+				margin:0 auto;
+				overflow-x: hidden;	
+				font-family:"Georgia", sans-serif;
+				position:relative;
+				background:#F6F6F6;
+				background: url(../images/seamless.jpg);
+				color:#000; 
+				}
+				
+	#page {
+				width:70%;
+				margin:0 auto;
+				text-align:center;
+				background: #FFF;
+				min-height:800px;
+				height:100%;
+				height: auto !important;
+				padding-bottom:100px;
+				border:1px solid #333;
+				border-bottom: none;
+				
+	}	
+	h2 {		padding-top:30px;}
+	
+	span {
+				font-weight:bold;
+				padding-left:10px;
+	}
+	
+	a {			
+				min-width:80px; height:10px;
+				width:100%;
+				padding:10px; 
+				text-decoration:none;
+				color:#000;
+				}
+
+.unselectable {
+    -WEBKIT-USER-SELECT: NONE; /* SAFARI, CHROME */
+    -KHTML-USER-SELECT: NONE; /* KONQUEROR */
+    -MOZ-USER-SELECT: NONE; /* FIREFOX */
+    -MS-USER-SELECT: NONE; /* IE */
+    USER-SELECT: NONE; /* CSS3 */
+}
+
+				
+      /**   MENU   **
+------------------------------------*/
+	#menu {
+		width:100%; 
+		background:#333333;
+		display:block;
+		height:100%;
+		padding: 10px 0;
+		margin-bottom: 50px;
+		
+	}
+	
+	#menu a {
+		padding:30px;
+		font-weight:bold;
+		color:#FFF;
+	}
+	
+	#membermenu {
+		width:100%; 
+	}
+	
+	#membermenu a {
+		margin-top:30px;
+		padding:10px;
+		font-weight:bold;
+		color:#FFF;
+		background:#61a360;
+		border-radius:5px;
+		 
+	}
+
+	/**   MEMBERLIST   **
+------------------------------------*/	
+	#memberlist {
+		border-top: 1px solid #333333;
+		float:left;
+		list-style-position: inside;
+		width:100%;
+		height:100%;
+		height: auto !important;
+		padding: 0;
+		margin:0;
+	}
+	
+	#memberlist a {
+				display:block;
+				text-align:left;
+				font-weight:bold;
+				padding:0;
+				padding-right: 30px;
+				padding-left: 20px;
+				font-size:1.2em; 
+				
+	}
+	
+	#memberlist .showMemberbtn {
+				display:block;
+				float:right;
+				width:100px;
+				text-align:center;
+				padding:10px;
+				padding-right:0px;
+				padding-left: 0px;
+				margin-right:20px;
+				margin-top:-45px;
+				color:#FFF;
+				background:#61a360;
+				border-radius:5px;
+				line-height:10px;
+	}
+	
+	#memberlist p {
+				padding-left: 20px; text-align:left;
+				
+	}
+			
+	#memberlist li {		
+				list-style-type: none;	
+				display:block;
+				float:left;
+				clear:both;
+				width:100%;
+				margin-left:-1,6em;
+				
+				font-size:1em;		
+				padding-top:10px;
+	}	
+	
+	
+	li:nth-child(even) { background: #CCC;}
+	li:nth-child(odd) { background: #FFF;}
+
+	
+	article, aside, details, figcaption, figure, main
+	footer, header, hgroup, menu, nav, section{ display: block; } 	
+	
+	
+	/**    FORMS       **
+-------------------------------------------------------------------*/		
+	#addMember {
+				width:100%;
+				height:100%;
+				padding-left:70px;
+		
+	}
+	#addMember h1 {
+				text-align:left;
+	}
+	
+	/**   MEMBER OVERVIEW      **
+-------------------------------------------------------------------*/
+	.deleteBtn { 
+				display:block;
+				height:100%;
+				float:right;
+				width:200px;
+				text-align:center;
+				padding:10px 20px;
+				padding-right:0px;
+				padding-left: 0px;
+				margin-right:20px;
+				margin-top:-55px;
+				color:#FFF;
+				background:#61a360;
+				border-radius:5px;
+				line-height:15px;
+		
+		}
+	
+	/**    INPUTS       **
+-------------------------------------------------------------------*/
+	label {
+		display:block;
+		clear:both;
+	}
+	input {
+		height:30px;
+		width:300px;
+		margin:5px 5px 10px 0;
+		float:left;
+		clear:both;
+	}
+	input:focus {
+	border: 1px solid #333;
+	}
+
+	.LoginBox {
+	
+		min-width:260px;
+		width:40%;
+		min-height:370px;
+		height:100%; 
+		height:auto !important;
+		padding:0 20px;
+		background:#F2F1F1;
+		box-shadow:0px 0px 10px #160b02;
+		-moz-box-shadow:5px 5px 10px #160b02;
+		-webkit-box-shadow:5px 5px 10px #160b02;
+		border-radius:10px;
+		margin:0 auto;
+		padding-bottom:20px;
+		margin-bottom:20px;
+	} 
+	.LoginBox p {
+		text-align:left;
+		margin-top:25px;
+	}
+	
+	.LoginBox h2 {
+		margin-top:5px;
+		line-height:17px;
+	}
+	
+	.errorMessage {
+		padding-bottom:5px;
+		font-weight:bold;
+		color:red;
+	}
+	
+	.textbox {
+		padding:5px;
+		border:1px solid #CCC;
+		border-radius:3px;
+		width:200px;
+		display:block;	
+	}
+	
+	#feedbackLogin {
+		padding:10px 0;
+		clear:both;
+	}
+	.LoginBtn, .LogoutBtn {
+		padding:5px 30px;
+		margin-top:15px;
+		display:block;
+		margin-bottom:45px;
+		background:#000;
+		color:#FFF;
+		border:1px solid #000;
+		border-radius: 3px;
+		cursor:pointer;
+		clear:both;
+	}
+	.LoginBtn:focus , .LogoutBtn:focus{outline:0;}
+	.LogoutBtn {
+		margin:0 auto;
+		margin-top:15px;
+		margin-bottom:45px;
+	}
+	label {
+		display:block;
+		float:left;
+	}
+	.checkbox {
+		float:left;
+		margin-top:-2px;
+		margin-left:10px;
+	}
