@@ -5,8 +5,8 @@ namespace view;
  * Class containing static methods and functions for navigation.
  */
 class NavigationView {
-	private static $action = 'action';
-	private static $id = 'id';
+	public static $action = 'action';
+	public static $id = 'id';
 	
 	public static $actionAddMember = 'add';
 	public static $actionAddBoat = 'addBoat';
@@ -29,19 +29,6 @@ class NavigationView {
 		return $html;
 	}
 	
-	/**
-	 * Get submenu for member section.
-	 * 
-	 * @param int $id Unique Key for the member the menu is created for.
-	 * 
-	 * @return String HTML
-	 */
-	public static function getMemberMenu($id) {
-		$html = "<div id='membermenu'>";
-		$html .= "<a href='?".self::$action."=".self::$actionAddBoat."&".self::$id."=$id'>Lägg till båt</a>&nbsp;";
-		$html .= "</div>";
-		return $html;
-	}
 	
 	/**
 	 * Return the current action asked for.

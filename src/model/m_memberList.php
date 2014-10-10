@@ -5,23 +5,23 @@ namespace model;
 require_once("m_member.php");
 
 /**
- * Type secure collection of participants.
+ * Type secure collection of members.
  */
 class MemberList {
-	private $portfolioOwners;
+	private $members;
 	
 	public function __construct() {
-		$this->portfolioOwners = array();
+		$this->members = array();
 	}
 	
 	/**
-	 * Returns an array of the participants.
+	 * Returns an array of the members.
 	 *
 	 * @return Array
 	 */
 	public function toArray() {
 		
-		return $this->portfolioOwners; 
+		return $this->members; 
 	}
 	
 	/**
@@ -33,7 +33,7 @@ class MemberList {
 	 */
 	public function add(Member $member) {
 		if (!$this->contains($member))
-			$this->portfolioOwners[] = $member;
+			$this->members[] = $member;
 	}
 	
 	/**
@@ -44,7 +44,7 @@ class MemberList {
 	 * @return Boolean
 	 */
 	public function contains(Member $member) {
-		foreach($this->portfolioOwners as $key => $owner) {
+		foreach($this->members as $key => $owner) {
 			if ($owner->getMemberId() == $member->getMemberId() && $owner->getName() == $member->getName()) {
 				return true;
 			}

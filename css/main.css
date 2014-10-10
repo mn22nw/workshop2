@@ -92,6 +92,7 @@
 		height: auto !important;
 		padding: 0;
 		margin:0;
+		text-align:left;
 	}
 	
 	#memberlist a {
@@ -123,6 +124,11 @@
 	
 	#memberlist p {
 				padding-left: 20px; text-align:left;
+				
+	}
+	#memberlist span {
+				padding-left: 0;
+				font-style: italic;
 				
 	}
 			
@@ -178,6 +184,34 @@
 				line-height:15px;
 		
 		}
+	.addBtn {
+				display:block;
+				height:100%;
+				width:200px;
+				text-align:center;
+				padding:10px 20px;
+				color:#FFF;
+				background:#61a360;
+				border-radius:5px;
+				line-height:15px;
+				margin:0 auto;
+	}
+	
+	/* ul */	
+	#boats li {
+				list-style-type:none;
+				padding:10px;
+				margin-left:-1.5em;
+				text-align:left;
+				border-bottom: 1px solid #61a360;
+			
+	}
+	
+	#boats span {
+				padding-left:0;
+	}
+	
+	
 	
 	/**    INPUTS       **
 -------------------------------------------------------------------*/
@@ -268,3 +302,4 @@
 		margin-top:-2px;
 		margin-left:10px;
 	}
+

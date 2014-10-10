@@ -1,8 +1,6 @@
 <?php
 require_once("src/view/HTMLView.php");
 require_once("src/controller/c_navigation.php");
-
-//maybe session start?
 	
 $view = new \view\HTMLView();
 

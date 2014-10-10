@@ -3,8 +3,9 @@
 
   class Misc {
     private static $sessionAlert = "sessionAlert";
-	private static $ceatedUsername = "ceatedUsername";    
-
+	private static $sessionName = "name";
+	private static $sessionLastName = "lastname";
+	private static $sessionBoatName = "boatname";
     /**
       * Get an alert from the session alert system
       * if there are any messages and the deletes it
@@ -19,7 +20,6 @@
       } else {
         $ret = "";
       }
-
       return $ret;
     }
 
@@ -31,27 +31,49 @@
       */
     public function setAlert($string) {
       $_SESSION[self::$sessionAlert] = $string;
-      return true;
     }
-
-	public function getCreatedUsername() {
-      if (isset($_SESSION[self::$ceatedUsername])) {
-        $ret = $_SESSION[self::$ceatedUsername];
-        unset($_SESSION[self::$ceatedUsername]);
+	
+	public function setName($name) {
+      $_SESSION[self::$sessionName] = $name;
+    }
+	   
+	public function getName() {
+      if (isset($_SESSION[self::$sessionName])) {
+        $ret = $_SESSION[self::$sessionName];
+        unset($_SESSION[self::$sessionName]);
       } else {
         $ret = "";
       }
-
       return $ret;
     }
-
-
-	 public function setCreatedUsername($string) {
-      $_SESSION[self::$ceatedUsername] = $string;
-      return true;
+		
+	public function setLastName($lastname) {
+      $_SESSION[self::$sessionLastName] = $lastname;
+    }
+	
+	public function getLastName() {
+      if (isset($_SESSION[self::$sessionLastName])) {
+        $ret = $_SESSION[self::$sessionLastName];
+        unset($_SESSION[self::$sessionLastName]);
+      } else {
+        $ret = "";
+      }
+      return $ret;
+    }
+		
+   public function setBoatName($name) {
+      $_SESSION[self::$sessionBoatName] = $name;
     }
 
-
+	public function getBoatName() {
+      if (isset($_SESSION[self::$sessionBoatName])) {
+        $ret = $_SESSION[self::$sessionBoatName];
+        unset($_SESSION[self::$sessionBoatName]);
+      } else {
+        $ret = "";
+      }
+      return $ret;
+    }
     /**
       * Makes the param safe from html and stuff...
       *
@@ -67,21 +89,5 @@
       return $var;
     }
 
-    /**
-      * Generate a unique-ish identifier
-      *
-      * @return string - The identifier encoded in sha1
-      */
-    public function setUniqueID() {
-      return sha1($_SERVER["REMOTE_ADDR"] . $_SERVER["HTTP_USER_AGENT"]);
-    }
 
-    /**
-      * Encrypts a given string
-      *
-      * @return string - The identifier encoded in sha1
-      */
-    public function encryptString($var) {
-      return sha1($var);
-    }
   }

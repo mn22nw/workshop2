@@ -10,7 +10,7 @@ class BoatRepository extends base\Repository {
 	private static $name = 'name';
 	private static $length = 'length';
 	private static $type = 'boatTypeFK';
-	private static $key = 'uniqueKey';
+	private static $key = 'boatid';
 	public static $owner = 'ownerMemberFK';
 	
 	public function __construct() {
@@ -22,7 +22,7 @@ class BoatRepository extends base\Repository {
 		$db = $this -> connection();
 
 		$sql = "INSERT INTO $this->dbTable (" . self::$key . ", " . self::$name . ", " . self::$length . ", ".self::$owner.", ".self::$type.") VALUES (?, ?, ?, ?, ?)";
-		$params = array($boat -> getUnique(), $boat -> getName(), $boat->getLength() , $boat->getOwner()->getUnique(), $boat->getBoatType());
+		$params = array("", $boat -> getName(), $boat->getLength() , $boat->getOwner(), $boat->getBoatType());
 
 		$query = $db -> prepare($sql);
 		$query -> execute($params);

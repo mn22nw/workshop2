@@ -61,6 +61,7 @@ class Member {
 		$this->memberId;
 	}
 	
+	
 	/**
 	 * Add a new boat to the user.
 	 * Do not add empty boats!?

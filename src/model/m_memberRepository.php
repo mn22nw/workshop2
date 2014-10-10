@@ -56,12 +56,13 @@ class MemberRepository extends base\Repository {
 
 		if ($result) {
 			$member = new \model\Member( $result[self::$name], $result[self::$surname],$result[self::$personalCn], NULL, $result[self::$memberId]);
-			$sql = "SELECT * FROM ".self::$boatTable. " WHERE ".BoatRepository::$owner." = ?";  //TODO - check boatrepository!
+			$sql = "SELECT * FROM ".self::$boatTable. " WHERE ".BoatRepository::$owner." = ?";  
 			$query = $db->prepare($sql);
 			$query->execute (array($result[self::$memberId]));
 			$boats = $query->fetchAll();
 			foreach($boats as $boat) {
-				$newBoat = new Boat($boat['name'], $boat['$memberId']);  //TODO add parameters here!
+				
+				$newBoat = new Boat($boat['name'], $boat['length'], $boat['boatTypeFK'], $boat['ownerMemberFK']);  
 				$member->add($newBoat);
 			}
 			return $member;
@@ -115,7 +116,7 @@ class MemberRepository extends base\Repository {
 		$query -> execute($params);
 	}
 
-	public function toCompactList() {
+	public function toList() {  // TODO need to add boats here to member!
 		try {
 			$db = $this -> connection();
 
@@ -123,13 +124,25 @@ class MemberRepository extends base\Repository {
 			$query = $db -> prepare($sql);
 			$query -> execute();
 
-			foreach ($query->fetchAll() as $owner) {
-				$name = $owner[self::$name];
-				$memberId = $owner[self::$memberId];  
-				$surname = $owner[self::$surname];
-				$personalcn = $owner[self::$personalCn];   
+			foreach ($query->fetchAll() as $member) {
+				$name = $member[self::$name];
+				$surname = $member[self::$surname];
+				$personalcn = $member[self::$personalCn];  
+				$memberId = $member[self::$memberId];   
 
-				$member = new Member($name, $surname, $personalcn, NULL, $memberId);   
+				$member = new Member($name, $surname, $personalcn, NULL, $memberId); 
+				
+				//Select boats from member
+				$sql = "SELECT * FROM ".self::$boatTable. " WHERE ".BoatRepository::$owner." = ?";  
+				$query = $db->prepare($sql);
+				$query->execute (array($memberId));
+				$boats = $query->fetchAll();
+				
+				// Add boats to member
+				foreach($boats as $boat) {  // TODO - ta bort strängberoenden!!
+					$newBoat = new Boat($boat['name'], $boat['length'], $boat['boatTypeFK'], $boat['ownerMemberFK']);  
+					$member->add($newBoat);
+				}	
 
 				$this -> members -> add($member);   
 			}
@@ -144,34 +157,4 @@ class MemberRepository extends base\Repository {
 			die('Error while connection to database.');
 		}
 	}
-	
-	public function toDetailedList() {
-		try {
-			$db = $this -> connection();
-
-			$sql = "SELECT * FROM $this->dbTable";
-			$query = $db -> prepare($sql);
-			$query -> execute();
-
-			foreach ($query->fetchAll() as $owner) {
-				$name = $owner[self::$name];
-				$memberId = $owner[self::$memberId]; 
-				$surname = $owner[self::$surname];
-				$personalcn = $owner[self::$personalCn]; 
-
-				$member = new Member($name, $surname, $personalcn, NULL, $memberId); // TODO get number of boats!
-
-				$this -> members -> add($member);   // TODO - write out surname etc
-			}
-
-			return $this -> members;
-		} catch (\PDOException $e) {
-			echo '<pre>';
-			var_dump($e);
-			echo '</pre>';
-
-			die('Error while connection to database.');
-		}
-	}
-
 }

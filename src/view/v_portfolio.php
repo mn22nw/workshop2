@@ -23,11 +23,11 @@ class PortfolioView {    // TODO - rename portfolio!
 		return false;
 	}
 
-	public function showCompactlist( \model\MemberList $portfolioOwners) {		
+	public function showCompactlist( \model\MemberList $members) {		
 		$ret = "<h1> Kompakt lista över medlemmar</h1>";
 		
 		$ret .= "<ul id='memberlist'>";
-		foreach ($portfolioOwners->toArray() as $member) {//Changed this to work with new navigation view.
+		foreach ($members->toArray() as $member) {//Changed this to work with new navigation view.
 
 			$ret .= "<li><a href='?action=".NavigationView::$actionShowMember."&amp;".self::$getLocation."=" . 
 					urlencode($member->getMemberId()) ."'>" .
@@ -43,15 +43,24 @@ class PortfolioView {    // TODO - rename portfolio!
 		return $ret;
 	}
 	
-	public function showDetailedlist( \model\MemberList $portfolioOwners) {		
+	public function showDetailedlist( \model\MemberList $members) {
+		$i =0; 
+				
 		$ret = "<h1> Detaljerad lista över medlemmar</h1>";
 		$ret .= "<ul id='memberlist'>";
-		foreach ($portfolioOwners->toArray() as $member) {//Changed this to work with new navigation view.
+		foreach ($members->toArray() as $member) {
 			$ret .= "<li><a href='?action=".NavigationView::$actionShowMember."&amp;".self::$getLocation."=" . 
 					urlencode($member->getMemberId()) ."'>" .
 					$member->getName(). " " .$member->getSurname() . "</a>";
-			$ret .= "<p>Personnr: " .$member->getPersonalcn(). ", Medlemsnr: " .$member->getMemberId();
-			$ret .= ", Antal båtar: " .count($member->getBoats()->toArray()). "</p>";
+			$ret .= "<p>Personnr: " .$member->getPersonalcn(). ", Medlemsnr: " .$member->getMemberId() . "</p>";
+			$ret .= "<p><span>Båtinformation:</span> Antal båtar: " .count($member->getBoats()->toArray()). "</p>";
+			
+			foreach ($member->getBoats()->toArray()as $boat) {
+				$i++;
+				$ret .= "<p><span> ". $i. ") " .$boat->getName(). "</span></p><p> Längd: ".$boat->getLength() . "m,";
+				$ret .= "<p>Båt-typ: ". $boat->getBoatType()."</p>";
+			}
+			$i = 0;
 			$ret .= "<a href='?action=".NavigationView::$actionShowMember."&amp;".self::$getLocation."=" . 
 					urlencode($member->getMemberId()) ."' class ='showMemberbtn'> Visa </a>";
 			$ret .= "</li> ";
