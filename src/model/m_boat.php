@@ -2,18 +2,22 @@
 namespace model;
 
 class Boat {
-
+	
+	public $boatid;
 	public $name;
 	public $type;
 	public $length;
 	public $owner;
-	
-	public function __construct($name, $length, $type, $owner) {
 
+	
+	public function __construct($boatid, $name, $length, $type, $owner) {
+		
+		$this->boatid = $boatid;
 		$this->owner = $owner;
 		$this->name = $name;
 		$this->type = $type;
 		$this->length = $length;
+		
 
 	}
 	
@@ -24,12 +28,21 @@ class Boat {
 			);
 	}
 	
+	public function getBoatId() {
+		return $this->boatid;
+	}
+	
+	
 	public function getName() {
 		return $this->name;
 	}
 	
 	public function getLength() {
 		return $this->length;
+	}
+	
+	public function getBoatTypeNr(){
+		return $this->type;
 	}
 	
 	public function getBoatType() {  // TODO  ta bort strängberoende om de finns
@@ -47,12 +60,12 @@ class Boat {
 			case '4':
 				return "Kajak/Kanot";
 				break;
-			
-			default:
+			case '5':
 				return "Övrigt";
 				break;
 		} 
 	}
+	
 	
 	
 	public function setOwner(Member $owner) {

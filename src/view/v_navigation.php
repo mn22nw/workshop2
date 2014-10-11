@@ -8,12 +8,16 @@ class NavigationView {
 	public static $action = 'action';
 	public static $id = 'id';
 	
-	public static $actionAddMember = 'add';
-	public static $actionAddBoat = 'addBoat';
 	public static $actionShowMember = 'show';
 	public static $actionShowAll = 'showAll';
 	public static $actionShowDetailedMemberlist = "showDetailedMemberlist";
+	public static $actionAddMember = 'add';
+	public static $actionAddBoat = 'addBoat';
+	public static $portfolio = 'portfolio';
+	public static $actionDeleteBoat = 'deleteBoat';  //TODO - change delete so it's not visible in the url
 	public static $actionDeleteMember = 'deleteMember';
+	public static $actionUpdateMember = 'updateMember'; 
+	public static $actionUpdateBoat = 'updateBoat';
 	
 	/**
 	 * Get the base menu with correct routed actions.;
@@ -80,7 +84,7 @@ class NavigationView {
 	 * 
 	 * @param String $uniqueString unique key for the member.
 	 */
-	public static function RedirectToMember($uniqueString) {
-		header('Location: /' . \Settings::$ROOT_PATH. '/?'.self::$action.'='.self::$actionShowMember.'&portfolio='.$uniqueString);
+	public static function RedirectToMember($memberId) {
+		header('Location: /' . \Settings::$ROOT_PATH. '/?'.self::$action.'='.self::$actionShowMember.'&portfolio='.$memberId);
 	}
 }

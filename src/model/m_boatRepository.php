@@ -22,17 +22,32 @@ class BoatRepository extends base\Repository {
 		$db = $this -> connection();
 
 		$sql = "INSERT INTO $this->dbTable (" . self::$key . ", " . self::$name . ", " . self::$length . ", ".self::$owner.", ".self::$type.") VALUES (?, ?, ?, ?, ?)";
-		$params = array("", $boat -> getName(), $boat->getLength() , $boat->getOwner(), $boat->getBoatType());
+		$params = array("", $boat -> getName(), $boat->getLength() , $boat->getOwner(), $boat->getBoatTypeNr());
 
 		$query = $db -> prepare($sql);
 		$query -> execute($params);
 	}
+	
+	public function update($boatId, Boat $boat) {
+		
+		$db = $this -> connection();
+		
+		// query
+		$sql = "UPDATE $this->dbTable 
+		        SET name=?, length=? , boatTypeFK=? 
+				WHERE boatid=?";
+				
+		$params = array($boat->getName(), $boat->getLength(),$boat->getBoatTypeNr(), $boatId );		
+		$query = $db -> prepare($sql);
+		$query -> execute($params);
+		
+	}
 
-	public function get($unique) {
+	public function get($boatid) {
 		$db = $this -> connection();
 
 		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$key . " = ?";
-		$params = array($unique);
+		$params = array($boatid);
 
 		$query = $db -> prepare($sql);
 		$query -> execute($params);
@@ -40,7 +55,8 @@ class BoatRepository extends base\Repository {
 		$result = $query -> fetch();
 
 		if ($result) {
-			return new \model\Member($result[self::$name], $result[self::$key]);  // TODO - add params here!
+			
+			return new \model\Boat($result[self::$key],$result[self::$name], $result[self::$length],$result[self::$type],$result[self::$owner]);  // TODO - add params here!
 		}
 	}
 
@@ -66,8 +82,8 @@ class BoatRepository extends base\Repository {
 	public function delete(Boat $boat) {
 		$db = $this -> connection();
 
-		$sql = "DELETE FROM $this->dbTable WHERE uniqueKey = ?";
-		$params = array($boat -> getUnique());
+		$sql = "DELETE FROM $this->dbTable WHERE " . self::$key. "= ?";
+		$params = array($boat -> getBoatId());
 
 		$query = $db -> prepare($sql);
 		$query -> execute($params);

@@ -21,18 +21,32 @@ class Navigation {
 					$controller = new MemberController();
 					return $controller->addMember();
 					break;
+					
 				case \view\NavigationView::$actionShowMember:
 					$controller = new MemberController();
 					return $controller->show();
 					break;
+				
+				case \view\NavigationView::$actionUpdateMember:
+					$controller = new MemberController();
+					return $controller->updateMember();
+					break;	
 					
 				case \view\NavigationView::$actionAddBoat:
 					$controller = new MemberController();
-					return $controller->addBoat();
+					return $controller->addBoat(); 
+				
+				case \view\NavigationView::$actionUpdateBoat:
+					$controller = new MemberController();
+					return $controller->updateBoat(); 
+					
+				case \view\NavigationView::$actionDeleteBoat:
+					$controller = new MemberController();
+					return $controller->deleteBoat();
 					
 				case \view\NavigationView::$actionDeleteMember:
 					$controller = new MemberController();
-					return $controller->deleteMember();   // TODO - fix delete member
+					return $controller->deleteMember();   
 					
 				case \view\NavigationView::$actionShowDetailedMemberlist:
 					$controller = new MemberController();

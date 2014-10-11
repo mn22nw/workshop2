@@ -38,3 +38,23 @@ SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'surname' cannot be
 SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'surname' cannot be null
 SQLSTATE[42S22]: Column not found: 1054 Unknown column 'memberId' in 'field list'
 SQLSTATE[42S22]: Column not found: 1054 Unknown column 'memberid' in 'where clause'
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHEREboatid= '3'' at line 1
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'ownerMemberFK' cannot be null
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE memberid= '21'' at line 1
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'memberid' in 'where clause'
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'memberid' in 'where clause'
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(name , surname, personalcn) 
+				VALUES ( 'Anniee', 'Sahlberg', '9104220000')
+	' at line 1
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE `memberid `= 17' at line 5
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'workshop2. member' doesn't exist
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'memberid ' in 'where clause'
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'memberid ' in 'where clause'
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Anniee' in 'field list'
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'workshop2.books' doesn't exist
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens

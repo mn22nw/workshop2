@@ -6,18 +6,18 @@ namespace view;
  * Some things might be better off in other views.
  */
 class PortfolioView {    // TODO - rename portfolio!
-	private static $getLocation = "portfolio"; //Made static
+	public static $getOwner = "portfolio"; //Made static
 	
 	public function getOwner() {
-		if (isset($_GET[self::$getLocation])) {
-			return $_GET[self::$getLocation];
+		if (isset($_GET[self::$getOwner])) {
+			return $_GET[self::$getOwner];
 		}
 		
 		return NULL;
 	}
 
 	public function visitorHasChosenPortfolio() {
-		if (isset($_GET[self::$getLocation])) 
+		if (isset($_GET[self::$getOwner])) 
 			return true;
 
 		return false;
@@ -29,12 +29,12 @@ class PortfolioView {    // TODO - rename portfolio!
 		$ret .= "<ul id='memberlist'>";
 		foreach ($members->toArray() as $member) {//Changed this to work with new navigation view.
 
-			$ret .= "<li><a href='?action=".NavigationView::$actionShowMember."&amp;".self::$getLocation."=" . 
+			$ret .= "<li><a href='?action=".NavigationView::$actionShowMember."&amp;".self::$getOwner."=" . 
 					urlencode($member->getMemberId()) ."'>" .
 					$member->getName(). " " .$member->getSurname() . "</a>";
 			$ret .= "<p>Medlemsnr: " .$member->getMemberId(). " , Antal båtar: " . count($member->getBoats()->toArray())."</p>";
-			$ret .= "<a href='?action=".NavigationView::$actionShowMember."&amp;".self::$getLocation."=" . 
-					urlencode($member->getMemberId()) ."' class ='showMemberbtn'> Visa </a>";
+			$ret .= "<a href='?action=".NavigationView::$actionShowMember."&amp;".self::$getOwner."=" . 
+					urlencode($member->getMemberId()) ."' class ='showMemberbtn'> Visa medlem </a>";
 			$ret .= "</li> ";
 		};
 		
@@ -49,7 +49,7 @@ class PortfolioView {    // TODO - rename portfolio!
 		$ret = "<h1> Detaljerad lista över medlemmar</h1>";
 		$ret .= "<ul id='memberlist'>";
 		foreach ($members->toArray() as $member) {
-			$ret .= "<li><a href='?action=".NavigationView::$actionShowMember."&amp;".self::$getLocation."=" . 
+			$ret .= "<li><a href='?action=".NavigationView::$actionShowMember."&amp;".self::$getOwner."=" . 
 					urlencode($member->getMemberId()) ."'>" .
 					$member->getName(). " " .$member->getSurname() . "</a>";
 			$ret .= "<p>Personnr: " .$member->getPersonalcn(). ", Medlemsnr: " .$member->getMemberId() . "</p>";
@@ -61,8 +61,8 @@ class PortfolioView {    // TODO - rename portfolio!
 				$ret .= "<p>Båt-typ: ". $boat->getBoatType()."</p>";
 			}
 			$i = 0;
-			$ret .= "<a href='?action=".NavigationView::$actionShowMember."&amp;".self::$getLocation."=" . 
-					urlencode($member->getMemberId()) ."' class ='showMemberbtn'> Visa </a>";
+			$ret .= "<a href='?action=".NavigationView::$actionShowMember."&amp;".self::$getOwner."=" . 
+					urlencode($member->getMemberId()) ."' class ='showMemberbtn'> Visa medlem</a>";
 			$ret .= "</li> ";
 		};
 		

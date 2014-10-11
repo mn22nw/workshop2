@@ -13,6 +13,7 @@ class MemberRepository extends base\Repository {
 	private static $surname = 'surname';
 	private static $personalCn ='personalcn';
 	private static $boatTable = 'boat';
+	private static $memberFK = 'OwnerMemberFK';
 
 	public function __construct() {
 		$this -> dbTable = 'member';
@@ -31,17 +32,38 @@ class MemberRepository extends base\Repository {
 		//gets memberId from the newly created member
 		$memberId = $this->getMemberId($member -> getName(), $member -> getPersonalCn());
 		$member->setMemberId($memberId);
-		urlencode($member->getMemberId());
+			
+	}
+	
+	
+	public function update($memberId, Member $member) {
+		$db = $this -> connection();
 		
-		//har skapats ett nytt object i database med memberid
-		//behöver hämta det och sen lägga in det i member jag skapat? 
+		// query
+		$sql = "UPDATE $this->dbTable 
+		        SET name=?, surname=? , personalcn=? 
+				WHERE memberid=?";
+				
+		$params = array($member -> getName(), $member -> getSurname(), $member -> getPersonalCn(), $memberId);		
+		$query = $db -> prepare($sql);
+		$query -> execute($params);
 		
-		foreach($member->getBoats()->toArray() as $boat) {   // TODO - strängberoende memberUnique?
-			$sql = "INSERT INTO ".self::$boatTable." (" . self::$memberId . ", " . self::$name . ", memberid) VALUES (?, ?, ?)";
+	/*	
+		$sql ="UPDATE  $this->dbTable   
+			   SET `" . self::$name . "` = ". $member -> getName() . ",
+			       `" . self::$surname . "` = ". $member -> getSurname() . ",
+			       `" . self::$personalCn . "` = ". $member -> getPersonalCn() . "
+				 WHERE ". self::$memberId . " = ".  $memberId;		*/
+	
+	}
+
+/*foreach($member->getBoats()->toArray() as $boat) {   // TODO - strängberoende memberid?
+			$sql = "INSERT INTO ".self::$boatTable." (" . self::$memberId . ", " . self::$name . ", " . self::$memberId . ") VALUES (?, ?, ?)";
 			$query = $db->prepare($sql);
 			$query->execute(array($boat->getUnique(), $boat->getName(), $member->getMemberId()));
-		}
-	}
+		}*/
+
+
 
 	public function get($unique) {
 		$db = $this -> connection();
@@ -62,7 +84,7 @@ class MemberRepository extends base\Repository {
 			$boats = $query->fetchAll();
 			foreach($boats as $boat) {
 				
-				$newBoat = new Boat($boat['name'], $boat['length'], $boat['boatTypeFK'], $boat['ownerMemberFK']);  
+				$newBoat = new Boat($boat['boatid'],$boat['name'], $boat['length'], $boat['boatTypeFK'], $boat['ownerMemberFK']);  
 				$member->add($newBoat);
 			}
 			return $member;
@@ -107,13 +129,23 @@ class MemberRepository extends base\Repository {
 	}
 
 	public function delete(\model\Member $member) {
+			
 		$db = $this -> connection();
+		
+		$sql = "DELETE FROM ".self::$boatTable."  WHERE " . self::$memberFK . "= ?";
+		$params = array($member -> getMemberId());
+		
+		$query = $db -> prepare($sql);
+		$query -> execute($params);
+		
 
 		$sql = "DELETE FROM $this->dbTable WHERE " . self::$memberId . "= ?";
 		$params = array($member -> getMemberId());
 
 		$query = $db -> prepare($sql);
 		$query -> execute($params);
+	
+		
 	}
 
 	public function toList() {  // TODO need to add boats here to member!
@@ -140,7 +172,7 @@ class MemberRepository extends base\Repository {
 				
 				// Add boats to member
 				foreach($boats as $boat) {  // TODO - ta bort strängberoenden!!
-					$newBoat = new Boat($boat['name'], $boat['length'], $boat['boatTypeFK'], $boat['ownerMemberFK']);  
+					$newBoat = new Boat($boat['boatid'], $boat['name'], $boat['length'], $boat['boatTypeFK'], $boat['ownerMemberFK']);  
 					$member->add($newBoat);
 				}	
 

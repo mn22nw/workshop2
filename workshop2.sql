@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 10 okt 2014 kl 14:45
+-- Tid vid skapande: 11 okt 2014 kl 17:35
 -- Serverversion: 5.6.15-log
 -- PHP-version: 5.4.24
 
@@ -33,16 +33,17 @@ CREATE TABLE IF NOT EXISTS `boat` (
   `ownerMemberFK` varchar(255) NOT NULL,
   `boatTypeFK` int(11) NOT NULL,
   PRIMARY KEY (`boatid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumpning av Data i tabell `boat`
 --
 
 INSERT INTO `boat` (`boatid`, `name`, `length`, `ownerMemberFK`, `boatTypeFK`) VALUES
-(3, 'HERA', 22, '17', 1),
 (5, 'testing', 13, '9', 1),
-(6, 'min favvo kanot <3', 6, '9', 4);
+(6, 'min favvo kanot <3', 6, '9', 4),
+(7, 'FIREFLY (a flying boat) ', 12, '18', 1),
+(14, 'hiro nakamura', 45, '17', 1);
 
 -- --------------------------------------------------------
 
@@ -79,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `surname` varchar(150) NOT NULL,
   `personalcn` varchar(12) NOT NULL,
   PRIMARY KEY (`memberid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumpning av Data i tabell `member`
@@ -87,7 +88,8 @@ CREATE TABLE IF NOT EXISTS `member` (
 
 INSERT INTO `member` (`memberid`, `name`, `surname`, `personalcn`) VALUES
 (9, 'Maria', 'Nygren', 'tjohej'),
-(17, 'Annie', 'Sahlberg', '9104220000');
+(17, 'Annie', 'Minion', '9104220000'),
+(18, 'Harry', 'Potter', '8877777777');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -20,6 +20,7 @@ class MemberController {
 	private $memberView;
 	private $boatRepository;
 	private $validation; 
+	private $boatView;
 
 	/**
 	 * Instantiate required views and required repositories.
@@ -31,6 +32,7 @@ class MemberController {
 		$this->memberRepository = new \model\MemberRepository();
 		$this->boatRepository = new \model\BoatRepository();
 		$this->validation = new \model\Validation();
+		$this->boatView = new \view\BoatView();
 	}
 
 	/**
@@ -92,8 +94,35 @@ class MemberController {
 		}
 	}
 	
+	public function updateMember() {
+			
+		if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+			$updatedMember = $this->memberView->getFormData();    // gets the input from the updateform
+			
+			//VALIDATES IN MODEL BEFORE UPDATING //
+			if ($this->validation->validateMemberName($updatedMember[0],$updatedMember[1]) && $this->validation->validateMemberSecurityNumber($updatedMember[2])){
+				
+				//updates member in database, first parameter = memberId //
+				$this->memberRepository->update($updatedMember[3], new \model\Member($updatedMember[0],$updatedMember[1], $updatedMember[2])); 
+			}
+			
+			else {
+				$member = $this->memberRepository->get($updatedMember[3]); 
+				return $this->memberView->getUpdateForm($member);  
+			}				
+			
+			\view\NavigationView::RedirectToMember($updatedMember[3]); 
+		} 
+		
+		else {
+			$member = $this->memberRepository->get($this->memberView->getOwner()); 
+			return $this->memberView->getUpdateForm($member);
+		}
+	}
+	
+	
 	/**
-	 * Controller function to add a project.
+	 * Controller function to add a boat.
 	 * Function returns HTML or Redirect.
 	 * 
 	 * @TODO: Move to an own controller?
@@ -101,22 +130,62 @@ class MemberController {
 	 * @return Mixed
 	 */
 	public function addBoat() {
-		$view = new \view\BoatView();
 		if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-			$boat = $view->getBoat();		
+			$boat = $this->boatView->getBoat();		 
 			if($this->validation->validateBoatName($boat[0]) && $this->validation->validateBoatLength($boat[1])){
-				
-				$this->boatRepository->add(new \model\Boat($boat[0],$boat[1],$boat[2],$boat[3]));
+
+				$this->boatRepository->add(new \model\Boat("",$boat[0],$boat[1],$boat[2],$boat[3]));
 			}else{
-				return $view->getForm($this->memberRepository->get($boat[3]));
+				return $this->boatView->getForm($this->memberRepository->get($boat[3]));
 			}
-			
-			\view\NavigationView::RedirectHome();
+			$member = $this->boatView->getOwnerUnique();  
+			\view\NavigationView::RedirectToMember($member);
+			//\view\NavigationView::RedirectHome();
 			//\view\NavigationView::RedirectToMember($view->getOwnerUnique());
 		} else {
-			return $view->getForm($this->memberRepository->get(\view\NavigationView::getId()));
+			return $this->boatView->getForm($this->memberRepository->get(\view\NavigationView::getId()));
 		}
 	}
+	
+		/**
+	 * Controller function to add a boat.
+	 * Function returns HTML or Redirect.
+	 * 
+	 * @TODO: Move to an own controller?
+	 * 
+	 * @return Mixed
+	 */
+	public function updateBoat() {
+		
+		$boatId = $this->boatView->getBoatid();
+		
+		$boat = $this->boatRepository->get($boatId);  
+
+		
+		if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+			$updatedBoat = $this->boatView->getBoat();		
+			
+			if ($this->validation->validateBoatName($updatedBoat[0]) && $this->validation->validateBoatLength($updatedBoat[1])){
+
+				$this->boatRepository->update($updatedBoat[4], new \model\Boat("",$updatedBoat[0],$updatedBoat[1],$updatedBoat[2],$updatedBoat[3]));
+			}
+			else{
+					
+				$member= $this->memberRepository->get($updatedBoat[3]);
+				
+				return $this->boatView->getUpdateForm($member, $boat );   
+			}
+			
+			$memberId = $updatedBoat[3];	
+			\view\NavigationView::RedirectToMember($memberId); 
+		} 
+		else {
+			$member = $this->memberRepository->get($this->memberView->getOwner());
+			
+			return $this->boatView->getUpdateForm($member, $boat);
+		}
+	}
+	
 	
 	public function deleteMember() {
 				
@@ -132,10 +201,17 @@ class MemberController {
 		   else{
 		    // do nothing ?
 		    // \view\NavigationView::RedirectHome(); //TODO -Redirect to member!?
-		   }
-			 
-			
-			
+		   }	
+	}
+	
+	public function deleteBoat(){
+		$member = $this->memberView->getOwner();  
+		$boat = $this->boatRepository->get($this->memberView->getBoat());  
+		
+		$this->boatRepository->delete($boat); 
+	
+		\view\NavigationView::RedirectToMember($member);
+		//\view\NavigationView::RedirectHome();
 	}
 }
 
