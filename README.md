@@ -5,7 +5,7 @@ workshop2
 
 
 - Leta efter DRY
-- kolla TODO kommentarer ( sök med ctrl + f efter TODO) 
+- kolla/ta bort TODO kommentarer ( sök med ctrl + f efter TODO) 
 - ta bort bortkommeterad kod
 - leta efter strängberoenden
 - confirm vid detele (om du orkar)
