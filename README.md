@@ -3,7 +3,13 @@ workshop2
 **ATT FIXA**
 
 
-- möjlighet att redigera medlem / båt
+
+- Leta efter DRY
+- kolla TODO kommentarer ( sök med ctrl + f efter TODO) 
+- ta bort bortkommeterad kod
+- leta efter strängberoenden
+- confirm vid detele (om du orkar)
+
 
 
  
